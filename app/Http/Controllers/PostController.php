@@ -47,6 +47,11 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request){
+        $request->validate([
+    'image'=>"file",
+    'description'=>"string",
+    'title'=>"required|min:10",
+]);
         $images=$request->file("images");
         $image_names[]=null;
         $i=0;
@@ -85,7 +90,12 @@ class PostController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Post $Post)
-{       if ($request->images == null) {
+{      $request->validate([
+        'image'=>"file",
+        'description'=>"string",
+        'title'=>"required|min:10",
+        ]);
+        if ($request->images == null) {
         $json=$Post->images;
         }
         else{

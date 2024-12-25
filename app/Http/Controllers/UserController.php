@@ -31,6 +31,11 @@ class UserController extends Controller
 
     public function store(Request $request){
         $this->authorize("admin" , User::class);
+        $request->validate([
+            'email'=>"email|required",
+            'name'=>"string",
+            'password'=>"required|min:8|password",
+        ]);
         if($request->is_admin)
         $is_admin=true;
         else
@@ -54,6 +59,11 @@ class UserController extends Controller
     public function update(Request $request, User $User)
 {
     $this->authorize("admin" , User::class);
+    $request->validate([
+            'email'=>"email|required",
+            'name'=>"string",
+            'password'=>"required|min:8|password",
+        ]);
         $User->update([
             'name'=>$request->name,
             'email'=>$request->email,
